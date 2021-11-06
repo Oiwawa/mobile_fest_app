@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_fest_app/widgets/admin/admin_festival.dart';
+import 'package:mobile_fest_app/widgets/admin/admin_artiste.dart';
+import 'package:mobile_fest_app/widgets/admin/admin_scene.dart';
 
 import 'widgets/home_page.dart';
 import 'widgets/login_page.dart';
@@ -15,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'MobileFest',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
@@ -23,8 +26,11 @@ class MyApp extends StatelessWidget {
         '/register': (BuildContext context) => RegisterPage(),
         '/login': (BuildContext context) => LoginPage(),
         '/home': (BuildContext context) => HomePage(),
+        '/admin/festival': (BuildContext context) => AdminFestival(),
+        '/admin/artiste': (BuildContext context) => AdminArtiste(),
+        '/admin/scene': (BuildContext context) => AdminScene(),
       },
-      initialRoute: '/login',
+      initialRoute: '/admin/festival',
     );
   }
 }
