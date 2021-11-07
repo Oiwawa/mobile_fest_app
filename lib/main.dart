@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_fest_app/widgets/admin/admin_event.dart';
 import 'package:mobile_fest_app/widgets/admin/admin_festival.dart';
 import 'package:mobile_fest_app/widgets/admin/admin_artiste.dart';
 import 'package:mobile_fest_app/widgets/admin/admin_scene.dart';
+import 'package:mobile_fest_app/widgets/admin/admin_user.dart';
 
 import 'widgets/home_page.dart';
 import 'widgets/login_page.dart';
@@ -27,8 +29,10 @@ class MyApp extends StatelessWidget {
         '/login': (BuildContext context) => LoginPage(),
         '/home': (BuildContext context) => HomePage(),
         '/admin/festival': (BuildContext context) => AdminFestival(),
-        '/admin/artiste': (BuildContext context) => AdminArtiste(),
-        '/admin/scene': (BuildContext context) => AdminScene(),
+        '/admin/artistes': (BuildContext context) => AdminArtiste(),
+        '/admin/scenes': (BuildContext context) => AdminScene(),
+        '/admin/events': (BuildContext context) => AdminEvent(),
+        '/admin/users': (BuildContext context) => AdminUser(),
       },
       initialRoute: '/admin/festival',
     );

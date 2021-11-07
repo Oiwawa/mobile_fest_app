@@ -3,47 +3,47 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_fest_app/bo/user.dart';
+import 'package:mobile_fest_app/bo/event.dart';
 
-class AdminUser extends StatefulWidget {
-  const AdminUser({Key? key}) : super(key: key);
+class AdminEvent extends StatefulWidget {
+  const AdminEvent({Key? key}) : super(key: key);
 
   @override
-  _AdminUserState createState() => _AdminUserState();
+  _AdminEventState createState() => _AdminEventState();
 }
 
-class _AdminUserState extends State<AdminUser> {
-  late List<User> listeUsers = [];
+class _AdminEventState extends State<AdminEvent> {
+  late List<Event> listeEvents = [];
 
-  TextEditingController tecUser = TextEditingController();
+  TextEditingController tecEvent = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _fetchUsers();
+    _fetchEvents();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Liste des Utilisateurs")),
+      appBar: AppBar(title: const Text("Liste des Scenes")),
       body: Column(
         children: [
           Expanded(
             child: ListView.separated(
                 separatorBuilder: (context, index) => const Divider(),
-                itemCount: listeUsers.length,
+                itemCount: listeEvents.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(listeUsers[index].name.toString(),
+                        Text(listeEvents[index].artiste.toString(),
                             style: const TextStyle(
 
                             )),
                         const Spacer(flex: 1,),
-                        Text("Contact : "+ listeUsers[index].festivalPass.toString(),
+                        Text(listeEvents[index].scene.toString(),
                             style: const TextStyle(
                               fontSize: 15.0,
                             )),
@@ -58,26 +58,26 @@ class _AdminUserState extends State<AdminUser> {
     );
   }
 
-  _fetchUsers() async {
+  _fetchEvents() async {
     final response = await http
-        .get(Uri.parse('http://127.0.0.1:8000/api/user'));
+        .get(Uri.parse('http://127.0.0.1:8000/api/event'));
 
     if (response.statusCode == 200) {
 
-      var mapUsers = jsonDecode(response.body);
-      List<User> users = List<User>.from(
-          mapUsers.map((users) => User.fromJson(users))
+      var mapEvents = jsonDecode(response.body);
+      List<Event> events = List<Event>.from(
+          mapEvents.map((events) => Event.fromJson(events))
       );
-      _onReloadListView(users);
+      _onReloadListView(events);
     } else {
       throw Exception('Erreur de chargement des données.');
     }
   }
 
-  _onReloadListView(List<User> users) {
+  _onReloadListView(List<Event> events) {
     setState(() {
-      listeUsers = users;
-      tecUser.clear();
+      listeEvents = events;
+      tecEvent.clear();
     });
   }
 }
