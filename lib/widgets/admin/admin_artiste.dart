@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mobile_fest_app/bo/artiste.dart';
-import 'package:mobile_fest_app/bo/festival.dart';
 import 'package:http/http.dart' as http;
 
 class AdminArtiste extends StatefulWidget {
