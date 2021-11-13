@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'package:mobile_fest_app/bo/event.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import '/bo/festival.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,44 +14,71 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<Festival> festival;
+  late List<Event> listeEvents = [];
+
+  TextEditingController tecEvent = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _fetchFestival();
+    _fetchEvents();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Festival")),
-      body: Center(
-        child: FutureBuilder<Festival>(
-          future: festival,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Text(snapshot.data!.nom);
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
+      appBar: AppBar(title: const Text("Liste des Scenes")),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+                separatorBuilder: (context, index) => const Divider(),
+                itemCount: listeEvents.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(listeEvents[index].artiste.toString(),
+                            style: const TextStyle(
 
-            // By default, show a loading spinner.
-            return const CircularProgressIndicator();
-          },
-        ),
+                            )),
+                        const Spacer(flex: 1,),
+                        Text(listeEvents[index].scene.toString(),
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                            )),
+                        const Spacer(flex: 10),
+                      ],
+                    ),
+                  );
+                }),
+          ),
+        ],
       ),
     );
   }
 
-  Future<Festival> _fetchFestival() async {
+  _fetchEvents() async {
     final response = await http
-        .get(Uri.parse('http://127.0.0.1:8000/api/festival/5cd4e624-f803-3d2d-b854-b6a804a1363f'));
+        .get(Uri.parse('http://127.0.0.1:8000/api/event'));
 
     if (response.statusCode == 200) {
-      return Festival.fromJson(jsonDecode(response.body));
+
+      var mapEvents = jsonDecode(response.body);
+      List<Event> events = List<Event>.from(
+          mapEvents.map((events) => Event.fromJson(events))
+      );
+      _onReloadListView(events);
     } else {
-      throw Exception('Failed to load festival');
+      throw Exception('Erreur de chargement des données.');
     }
+  }
+
+  _onReloadListView(List<Event> events) {
+    setState(() {
+      listeEvents = events;
+      tecEvent.clear();
+    });
   }
 }
