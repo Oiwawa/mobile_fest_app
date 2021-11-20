@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_fest_app/bo/event.dart';
 
@@ -48,6 +50,10 @@ class _AdminEventState extends State<AdminEvent> {
                               fontSize: 15.0,
                             )),
                         const Spacer(flex: 10),
+                        IconButton(
+                            onPressed: () => _deleteEvent(listeEvents[index].id.toString()),
+                            icon: const Icon(Icons.delete)
+                        ),
                       ],
                     ),
                   );
@@ -79,5 +85,21 @@ class _AdminEventState extends State<AdminEvent> {
       listeEvents = events;
       tecEvent.clear();
     });
+  }
+
+  _deleteEvent(String id) async {
+    final response = await http
+        .delete(Uri.parse('http://127.0.0.1:8000/api/event/'+ id));
+
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(
+          msg: "Evénement supprimé de la programmation",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 4
+      );
+      _fetchEvents();
+    }
+
   }
 }

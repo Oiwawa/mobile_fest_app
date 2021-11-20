@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         '/admin/events': (BuildContext context) => AdminEvent(),
         '/admin/users': (BuildContext context) => AdminUser(),
       },
-      initialRoute: '/register',
+      initialRoute: '/admin/events',
     );
   }
 }

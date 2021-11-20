@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobile_fest_app/bo/scene.dart';
 import 'package:http/http.dart' as http;
 
@@ -39,12 +40,12 @@ class _AdminSceneState extends State<AdminScene> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(listeScenes[index].nom),
-                        // const Spacer(),
-                        // Text(listeScenes[index].festival.nom.toString(),
-                        //     style: const TextStyle(
-                        //       fontSize: 15.0,
-                        //     )),
-                        const Spacer(flex: 10),
+                        const Spacer(flex: 8),
+                        IconButton(
+                            onPressed: () =>
+                                _deleteScene(listeScenes[index].id.toString()),
+                            icon: const Icon(Icons.delete)
+                        ),
                       ],
                     ),
                   );
@@ -65,7 +66,6 @@ class _AdminSceneState extends State<AdminScene> {
       List<Scene> scenes = List<Scene>.from(
           mapScenes.map((scenes) => Scene.fromJson(scenes)));
       _onReloadListView(scenes);
-
     } else {
       throw Exception('Erreur de chargement des données.');
     }
@@ -73,8 +73,23 @@ class _AdminSceneState extends State<AdminScene> {
 
   _onReloadListView(List<Scene> scenes) {
     setState(() {
-      listeScenes= scenes;
+      listeScenes = scenes;
       tecScene.clear();
     });
+  }
+
+  _deleteScene(String id) async {
+    final response = await http
+        .delete(Uri.parse('http://127.0.0.1:8000/api/scene/' + id));
+
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(
+          msg: "Scène supprimée.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 4
+      );
+      _fetchScene();
+    }
   }
 }
