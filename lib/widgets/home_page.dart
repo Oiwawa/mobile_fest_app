@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'package:mobile_fest_app/bo/artiste.dart';
 import 'package:mobile_fest_app/bo/event.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile_fest_app/bo/festival.dart';
+import 'package:mobile_fest_app/bo/scene.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,6 +18,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late List<Event> listeEvents = [];
+  late List<Artiste> listeArtistes = [];
+  late List<Scene> listeScenes = [];
+  late List<Festival> festival = [];
 
   TextEditingController tecEvent = TextEditingController();
 
@@ -27,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Liste des Scenes")),
+      appBar: AppBar(title: const Text("Programmation")),
       body: Column(
         children: [
           Expanded(

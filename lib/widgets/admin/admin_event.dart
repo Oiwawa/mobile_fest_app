@@ -28,7 +28,7 @@ class _AdminEventState extends State<AdminEvent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Liste des Scenes")),
+      appBar: AppBar(title: const Text("Liste des Evenements")),
       body: Column(
         children: [
           Expanded(
@@ -40,12 +40,12 @@ class _AdminEventState extends State<AdminEvent> {
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(listeEvents[index].artiste.toString(),
+                        Text(listeEvents[index].datetime_debut.toString(),
                             style: const TextStyle(
-
+                              fontSize: 15.0,
                             )),
                         const Spacer(flex: 1,),
-                        Text(listeEvents[index].scene.toString(),
+                        Text(listeEvents[index].artiste.toString(),
                             style: const TextStyle(
                               fontSize: 15.0,
                             )),

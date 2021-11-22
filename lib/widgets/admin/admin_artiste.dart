@@ -91,12 +91,9 @@ class _AdminArtisteState extends State<AdminArtiste> {
         .delete(Uri.parse('http://127.0.0.1:8000/api/artiste/'+ id));
 
     if (response.statusCode == 200) {
-      Fluttertoast.showToast(
-          msg: "Artiste supprimé de la programmation",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 4
-      );
+      SnackBar snackBarSuccess =
+      const SnackBar(content: Text("Artiste supprimé du festival."));
+      ScaffoldMessenger.of(context).showSnackBar(snackBarSuccess);
       _fetchArtiste();
     }
 

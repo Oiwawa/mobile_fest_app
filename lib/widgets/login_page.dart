@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
 
     try{
       var responseRegister = await http.post(
-        Uri.parse("https:// http://127.0.0.1:8000/api/login"),
+        Uri.parse(" http://127.0.0.1:8000/api/login"),
         body: {
           "email": identifiant,
           "password": password,

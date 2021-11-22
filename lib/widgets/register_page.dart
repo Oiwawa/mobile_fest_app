@@ -34,13 +34,12 @@ class _RegisterPageState extends State<RegisterPage> {
       children: [
         const Spacer(),
         TextField(
-          controller: tecEmail,
+          controller: tecName,
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.emailAddress,
           decoration: const InputDecoration(
-              label: Text('Nom'), prefixIcon: Icon(Icons.person)),
-        ),
-        TextField(
+              label: Text('Name'), prefixIcon: Icon(Icons.person)),
+        ), TextField(
           controller: tecEmail,
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.emailAddress,
@@ -82,21 +81,21 @@ class _RegisterPageState extends State<RegisterPage> {
     print('username : ${tecName.text}');
     print('email : ${tecEmail.text}');
     print('password : ${tecPassword.text}');
+    print('password : ${tecFestivalPass.text}');
     String name = tecName.text;
-    String festivalPass = tecFestivalPass.text;
     String email = tecEmail.text;
+    String festivalPass = tecFestivalPass.text;
     String password = tecPassword.text;
 
-    //flutter pub add http
-
     var responseRegister = await http.post(
-        Uri.parse('http://http://127.0.0.1:8000/auth/api/register'),
+        Uri.parse('http://127.0.0.1:8000/api/register'),
         body: {
           "name": name,
           "email": email,
-          "festival_pass": tecFestivalPass,
+          "festival_pass": festivalPass,
           "password": password,
         });
+        print(responseRegister.body.toString());
     try {
       if (responseRegister.statusCode == 200) {
         SnackBar snackBarSuccess =
@@ -104,8 +103,10 @@ class _RegisterPageState extends State<RegisterPage> {
         ScaffoldMessenger.of(context).showSnackBar(snackBarSuccess);
 
         tecPassword.clear();
+        tecFestivalPass.clear();
         tecName.clear();
         tecEmail.clear();
+        _onLogin();
       } else if (responseRegister.statusCode != null) {
         SnackBar snackBarSuccess = SnackBar(
             content:
