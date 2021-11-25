@@ -41,7 +41,7 @@ class _AdminArtisteState extends State<AdminArtiste> {
                       children: [
                         Text(listeArtistes[index].nom.toString(),
                         style: const TextStyle(
-
+                              fontSize: 15.0,
                         )),
                         const Spacer(flex: 1,),
                         Text("Contact : "+ listeArtistes[index].contact.toString(),
@@ -58,6 +58,12 @@ class _AdminArtisteState extends State<AdminArtiste> {
                   );
                 }),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+                onPressed: _addArtiste,
+                child: const Text('AJOUTER UN ARTISTE')),
+          ),
         ],
       ),
     );
@@ -73,6 +79,7 @@ class _AdminArtisteState extends State<AdminArtiste> {
       List<Artiste> artistes = List<Artiste>.from(
           mapArtistes.map((artistes) => Artiste.fromJson(artistes))
       );
+      print(artistes);
       _onReloadListView(artistes);
     } else {
       throw Exception('Erreur de chargement des données.');
@@ -86,6 +93,9 @@ class _AdminArtisteState extends State<AdminArtiste> {
     });
   }
 
+  _addArtiste() {
+    Navigator.of(context).pushNamed('/admin/artistes/create');
+  }
   _deleteArtiste(String id) async {
     final response = await http
         .delete(Uri.parse('http://127.0.0.1:8000/api/artiste/'+ id));

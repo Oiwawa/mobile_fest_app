@@ -43,6 +43,12 @@ class _AdminSceneState extends State<AdminScene> {
                         const Spacer(flex: 8),
                         IconButton(
                             onPressed: () =>
+                                _editScene(listeScenes[index].id.toString()),
+                            icon: const Icon(Icons.edit)
+                        ),
+                        const Spacer(flex: 1),
+                        IconButton(
+                            onPressed: () =>
                                 _deleteScene(listeScenes[index].id.toString()),
                             icon: const Icon(Icons.delete)
                         ),
@@ -50,6 +56,12 @@ class _AdminSceneState extends State<AdminScene> {
                     ),
                   );
                 }),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+                onPressed: _addScene,
+                child: const Text('CRÉER UNE SCENE')),
           ),
         ],
       ),
@@ -76,6 +88,14 @@ class _AdminSceneState extends State<AdminScene> {
       listeScenes = scenes;
       tecScene.clear();
     });
+  }
+
+  _addScene() {
+    Navigator.of(context).pushNamed('/admin/scenes/create');
+  }
+
+  _editScene(String id) {
+    Navigator.of(context).pushNamed('/admin/scenes/update');
   }
 
   _deleteScene(String id) async {

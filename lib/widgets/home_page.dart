@@ -45,15 +45,24 @@ class _HomePageState extends State<HomePage> {
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(listeEvents[index].artiste.toString(),
-                            style: const TextStyle(
-
-                            )),
+                         Text(listeEvents[index].artiste.nom.toString(),
+                             style: const TextStyle(
+                             )),
                         const Spacer(flex: 1,),
-                        Text(listeEvents[index].scene.toString(),
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                            )),
+                         Text("Scene : " + listeEvents[index].scene.nom.toString(),
+                             style: const TextStyle(
+                               fontSize: 15.0,
+                             )),
+                        const Spacer(flex: 1,),
+                         Text("Du : " + listeEvents[index].datetime_debut.toString(),
+                             style: const TextStyle(
+                               fontSize: 15.0,
+                             )),
+                        const Spacer(flex: 1,),
+                         Text("au : " + listeEvents[index].datetime_fin.toString(),
+                             style: const TextStyle(
+                               fontSize: 15.0,
+                             )),
                         const Spacer(flex: 10),
                       ],
                     ),

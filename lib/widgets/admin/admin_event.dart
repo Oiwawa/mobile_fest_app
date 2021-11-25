@@ -28,7 +28,7 @@ class _AdminEventState extends State<AdminEvent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Liste des Evenements")),
+      appBar: AppBar(title: const Text("Gestion des Evénements")),
       body: Column(
         children: [
           Expanded(
@@ -45,7 +45,12 @@ class _AdminEventState extends State<AdminEvent> {
                               fontSize: 15.0,
                             )),
                         const Spacer(flex: 1,),
-                        Text(listeEvents[index].artiste.toString(),
+                        Text(listeEvents[index].datetime_fin.toString(),
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                            )),
+                        const Spacer(flex: 1,),
+                        Text(listeEvents[index].artiste.nom.toString(),
                             style: const TextStyle(
                               fontSize: 15.0,
                             )),
@@ -58,6 +63,12 @@ class _AdminEventState extends State<AdminEvent> {
                     ),
                   );
                 }),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+                onPressed: _addEvent,
+                child: const Text('AJOUTER UN EVENEMENT')),
           ),
         ],
       ),
@@ -74,6 +85,7 @@ class _AdminEventState extends State<AdminEvent> {
       List<Event> events = List<Event>.from(
           mapEvents.map((events) => Event.fromJson(events))
       );
+
       _onReloadListView(events);
     } else {
       throw Exception('Erreur de chargement des données.');
@@ -85,6 +97,10 @@ class _AdminEventState extends State<AdminEvent> {
       listeEvents = events;
       tecEvent.clear();
     });
+  }
+
+  _addEvent() {
+    Navigator.of(context).pushNamed('/admin/events/create');
   }
 
   _deleteEvent(String id) async {

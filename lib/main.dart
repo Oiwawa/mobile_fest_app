@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:mobile_fest_app/widgets/admin/admin_event.dart';
 import 'package:mobile_fest_app/widgets/admin/admin_festival.dart';
 import 'package:mobile_fest_app/widgets/admin/admin_artiste.dart';
+import 'package:mobile_fest_app/widgets/admin/admin_main.dart';
 import 'package:mobile_fest_app/widgets/admin/admin_scene.dart';
 import 'package:mobile_fest_app/widgets/admin/admin_user.dart';
+import 'package:mobile_fest_app/widgets/admin/create/artiste_create.dart';
+import 'package:mobile_fest_app/widgets/admin/create/event_create.dart';
+import 'package:mobile_fest_app/widgets/admin/create/scene_create.dart';
 
 import 'widgets/home_page.dart';
 import 'widgets/login_page.dart';
@@ -28,14 +32,24 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/register': (BuildContext context) => RegisterPage(),
         '/login': (BuildContext context) => LoginPage(),
+
         '/home': (BuildContext context) => HomePage(),
+        '/admin': (BuildContext context) => AdminMainPage(),
+
         '/admin/artistes': (BuildContext context) => AdminArtiste(),
-        '/admin/festival': (BuildContext context) => AdminFestival(),
+        '/admin/artistes/create': (BuildContext context) => CreateArtistePage(),
+
         '/admin/scenes': (BuildContext context) => AdminScene(),
+        '/admin/scenes/create': (BuildContext context) => CreateScenePage(),
+        '/admin/scenes/update': (BuildContext context) => CreateScenePage(),
+
         '/admin/events': (BuildContext context) => AdminEvent(),
+        '/admin/events/create': (BuildContext context) => CreateEventPage(),
+
+        '/admin/festival': (BuildContext context) => AdminFestival(),
         '/admin/users': (BuildContext context) => AdminUser(),
       },
-      initialRoute: '/admin/events',
+      initialRoute: '/admin/scenes',
     );
   }
 }
