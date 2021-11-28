@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   return ListTile(
                     title: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                          Text(listeEvents[index].artiste.nom.toString(),
                              style: const TextStyle(
@@ -54,16 +54,11 @@ class _HomePageState extends State<HomePage> {
                                fontSize: 15.0,
                              )),
                         const Spacer(flex: 1,),
-                         Text("Du : " + listeEvents[index].datetime_debut.toString(),
+                         Text("Début : " + listeEvents[index].time_debut.toString(),
                              style: const TextStyle(
                                fontSize: 15.0,
                              )),
                         const Spacer(flex: 1,),
-                         Text("au : " + listeEvents[index].datetime_fin.toString(),
-                             style: const TextStyle(
-                               fontSize: 15.0,
-                             )),
-                        const Spacer(flex: 10),
                       ],
                     ),
                   );

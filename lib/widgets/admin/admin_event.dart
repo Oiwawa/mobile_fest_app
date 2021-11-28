@@ -40,12 +40,12 @@ class _AdminEventState extends State<AdminEvent> {
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(listeEvents[index].datetime_debut.toString(),
+                        Text(listeEvents[index].time_debut.toString(),
                             style: const TextStyle(
                               fontSize: 15.0,
                             )),
                         const Spacer(flex: 1,),
-                        Text(listeEvents[index].datetime_fin.toString(),
+                        Text(listeEvents[index].time_fin.toString(),
                             style: const TextStyle(
                               fontSize: 15.0,
                             )),

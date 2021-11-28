@@ -13,8 +13,37 @@ class CreateEventPage extends StatefulWidget {
 
 class _CreateEventPageState extends State<CreateEventPage> {
   TextEditingController tecName = TextEditingController();
-  TextEditingController tecContact = TextEditingController();
+  TextEditingController tecDebut = TextEditingController();
+  TextEditingController tecFin = TextEditingController();
 
+
+  TimeOfDay _debut = TimeOfDay(hour: 00, minute: 00);
+  TimeOfDay _fin = TimeOfDay(hour: 01, minute: 00);
+
+  void _selectTimeDebut() async {
+    final TimeOfDay? debut = await showTimePicker(
+      context: context,
+      initialTime: _debut,
+      initialEntryMode: TimePickerEntryMode.input,
+    );
+    if (debut != null) {
+      setState(() {
+        _debut = debut;
+      });
+    }
+  }
+  void _selectTimeFin() async {
+    final TimeOfDay? newTime = await showTimePicker(
+      context: context,
+      initialTime: _fin,
+      initialEntryMode: TimePickerEntryMode.input,
+    );
+    if (newTime != null) {
+      setState(() {
+        _fin = newTime;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,38 +69,48 @@ class _CreateEventPageState extends State<CreateEventPage> {
               label: Text('Nom de l\'artiste'),
               prefixIcon: Icon(Icons.person)),
         ),
-        TextField(
-          controller: tecContact,
-          textInputAction: TextInputAction.next,
-          keyboardType: TextInputType.name,
-          decoration: const InputDecoration(
-              label: Text('Contact de l\'artiste'),
-              prefixIcon: Icon(Icons.mail)),
+        const Spacer(flex: 1,),
+        ElevatedButton(
+          onPressed: _selectTimeDebut,
+          child: const Text('DEBUT'),
         ),
-        const Spacer(),
-        const Spacer(),
+        const SizedBox(height: 8),
+        Text(
+          'Horaire début: ${_debut.format(context)}',
+        ),
+        const Spacer(flex: 1,),
+        ElevatedButton(
+          onPressed: _selectTimeFin,
+          child: const Text('DEBUT'),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Horaire fin: ${_fin.format(context)}',
+        ),
+        const Spacer(flex: 1,),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
               onPressed: _onAddEvent,
               child: const Text('CREER UN EVENEMENT')),
         ),
-        const Spacer()
+        const Spacer(flex: 1,),
       ],
     );
   }
 
   _onAddEvent() async {
     print('nom artiste : ${tecName.text}');
-    print('nom artiste : ${tecContact.text}');
     String name = tecName.text;
-    String contact = tecContact.text;
+    String debut = _debut.format(context);
+    String fin = _fin.format(context);
 
     var responseRegister = await http.post(
         Uri.parse('http://127.0.0.1:8000/api/event'),
         body: {
           "nom": name,
-          "contact": contact,
+          "time_debut": debut,
+          "time_fin": fin,
         });
     print(responseRegister.body.toString());
     try {
@@ -82,10 +121,11 @@ class _CreateEventPageState extends State<CreateEventPage> {
 
         tecName.clear();
         _onAdd();
-      } else if (responseRegister.statusCode != null) {
+      } else {
+        print(responseRegister.body);
         SnackBar snackBarSuccess = SnackBar(
             content:
-            Text("Erreur : " + responseRegister.reasonPhrase.toString()));
+            Text(responseRegister.body[0]));
         ScaffoldMessenger.of(context).showSnackBar(snackBarSuccess);
       }
     } on SocketException catch (socketException) {

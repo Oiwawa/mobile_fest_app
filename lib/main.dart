@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         '/admin/festival': (BuildContext context) => AdminFestival(),
         '/admin/users': (BuildContext context) => AdminUser(),
       },
-      initialRoute: '/admin/scenes',
+      initialRoute: '/home',
     );
   }
 }
