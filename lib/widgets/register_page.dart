@@ -49,6 +49,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ), TextField(
           controller: tecFestivalPass,
           textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.number,
           decoration: const InputDecoration(
               label: Text('N° pass festival :'),
               prefixIcon: Icon(Icons.confirmation_number)),

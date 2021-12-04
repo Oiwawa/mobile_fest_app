@@ -43,7 +43,7 @@ class _CreateArtistePageState extends State<CreateArtistePage> {
         TextField(
           controller: tecContact,
           textInputAction: TextInputAction.next,
-          keyboardType: TextInputType.name,
+          keyboardType: TextInputType.emailAddress,
           decoration: const InputDecoration(
               label: Text('Contact de l\'artiste'),
               prefixIcon: Icon(Icons.mail)),

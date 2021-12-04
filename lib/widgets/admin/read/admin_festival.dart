@@ -61,9 +61,16 @@ class _AdminFestivalState extends State<AdminFestival> {
                   );
                 }),
           ),
+          ElevatedButton(
+              onPressed: _home,
+              child: const Text('DASHBOARD')),
         ],
       ),
     );
+  }
+
+  _home(){
+    Navigator.of(context).pushNamed('/admin');
   }
 
 

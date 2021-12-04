@@ -59,9 +59,22 @@ class _AdminUserState extends State<AdminUser> {
                   );
                 }),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+                onPressed: _addUser,
+                child: const Text('CRÉER UN UTILISATEUR')),
+          ),
+          ElevatedButton(
+              onPressed: _home,
+              child: const Text('DASHBOARD')),
         ],
       ),
     );
+  }
+
+  _home(){
+    Navigator.of(context).pushNamed('/admin');
   }
 
   _fetchUsers() async {
@@ -85,6 +98,10 @@ class _AdminUserState extends State<AdminUser> {
       listeUsers = users;
       tecUser.clear();
     });
+  }
+
+  _addUser() {
+    Navigator.of(context).pushNamed('/admin/users/create');
   }
 
   _deleteUser(String id) async {

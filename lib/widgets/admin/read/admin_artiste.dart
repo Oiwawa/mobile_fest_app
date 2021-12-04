@@ -70,9 +70,16 @@ class _AdminArtisteState extends State<AdminArtiste> {
                 onPressed: _addArtiste,
                 child: const Text('AJOUTER UN ARTISTE')),
           ),
+          ElevatedButton(
+          onPressed: _home,
+          child: const Text('DASHBOARD')),
         ],
       ),
     );
+  }
+
+  _home(){
+    Navigator.of(context).pushNamed('/admin');
   }
 
   _fetchArtiste() async {

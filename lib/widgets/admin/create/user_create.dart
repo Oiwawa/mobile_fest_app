@@ -44,15 +44,15 @@ class _CreateUserPageState extends State<CreateUserPage> {
         TextField(
           controller: tecEmail,
           textInputAction: TextInputAction.next,
-          keyboardType: TextInputType.name,
+          keyboardType: TextInputType.emailAddress,
           decoration: const InputDecoration(
               label: Text('Email :'),
               prefixIcon: Icon(Icons.mail)),
         ),
         TextField(
-          controller: tecEmail,
+          controller: tecFestivalPass,
           textInputAction: TextInputAction.next,
-          keyboardType: TextInputType.name,
+          keyboardType: TextInputType.number,
           decoration: const InputDecoration(
               label: Text('N° pass festival :'),
               prefixIcon: Icon(Icons.confirmation_number)),
@@ -62,7 +62,7 @@ class _CreateUserPageState extends State<CreateUserPage> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
-              onPressed: _onAddUser(),
+              onPressed: _onAddUser,
               child: const Text('AJOUTER L\'UTILISATEUR')),
         ),
         const Spacer()
@@ -78,9 +78,9 @@ class _CreateUserPageState extends State<CreateUserPage> {
     var responseRegister = await http.post(
         Uri.parse('http://10.0.2.2:8000/api/user'),
         body: {
-          "nom": name,
+          "name": name,
           "email": email,
-          "festivalPass": festivalPass,
+          "festival_pass": festivalPass,
         });
     try {
       if (responseRegister.statusCode == 200) {

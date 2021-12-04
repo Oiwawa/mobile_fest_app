@@ -70,11 +70,17 @@ class _AdminEventState extends State<AdminEvent> {
                 onPressed: _addEvent,
                 child: const Text('AJOUTER UN EVENEMENT')),
           ),
+          ElevatedButton(
+              onPressed: _home,
+              child: const Text('DASHBOARD')),
         ],
       ),
     );
   }
 
+  _home(){
+    Navigator.of(context).pushNamed('/admin');
+  }
   _fetchEvents() async {
     final response = await http
         .get(Uri.parse('http://10.0.2.2:8000/api/event'));

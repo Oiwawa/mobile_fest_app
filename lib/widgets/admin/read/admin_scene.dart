@@ -64,12 +64,17 @@ class _AdminSceneState extends State<AdminScene> {
                 onPressed: _addScene,
                 child: const Text('CRÉER UNE SCENE')),
           ),
-          const Spacer(flex: 1),
+            ElevatedButton(
+                onPressed: _home,
+                child: const Text('DASHBOARD')),
         ],
       ),
     );
   }
 
+  _home(){
+    Navigator.of(context).pushNamed('/admin');
+  }
 
   _fetchScene() async {
     final response =
