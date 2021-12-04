@@ -110,21 +110,19 @@ class _CreateEventPageState extends State<CreateEventPage> {
   }
 
   _onAddEvent() async {
-    print('nom artiste : ${tecName.text}');
     String name = tecName.text;
     String scene = tecScene.text;
     String debut = _debut.format(context);
     String fin = _fin.format(context);
 
     var responseRegister = await http.post(
-        Uri.parse('http://192.168.1.51/api/event'),
+        Uri.parse('http://10.0.2.2:8000/api/event'),
         body: {
           "nomArtiste": name,
           "scene": scene,
           "time_debut": debut,
           "time_fin": fin,
         });
-    print(responseRegister.body.toString());
     try {
       if (responseRegister.statusCode == 200) {
         SnackBar snackBarSuccess =
@@ -132,9 +130,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
         ScaffoldMessenger.of(context).showSnackBar(snackBarSuccess);
 
         tecName.clear();
+        tecScene.clear();
         _onAdd();
       } else {
-        print(responseRegister.body);
         SnackBar snackBarSuccess = SnackBar(
             content:
             Text(responseRegister.body[0]));

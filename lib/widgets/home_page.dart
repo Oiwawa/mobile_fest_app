@@ -34,9 +34,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Programmation")),
+      appBar: AppBar(title: const Text("Les Solimonth")),
       body: Column(
         children: [
+          _festMap(),
           Expanded(
             child: ListView.separated(
                 separatorBuilder: (context, index) => const Divider(),
@@ -46,25 +47,38 @@ class _HomePageState extends State<HomePage> {
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                         Text(listeEvents[index].artiste.nom.toString(),
-                             style: const TextStyle(
-                             )),
+                        Text(listeEvents[index].artiste.nom.toString(),
+                            style: const TextStyle(
+                            )),
                         const Spacer(flex: 1,),
-                         Text("Scene : " + listeEvents[index].scene.nom.toString(),
-                             style: const TextStyle(
-                               fontSize: 15.0,
-                             )),
+                        Text("Scene : " +
+                            listeEvents[index].scene.nom.toString(),
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                            )),
                         const Spacer(flex: 1,),
-                         Text("Début : " + listeEvents[index].time_debut.toString(),
-                             style: const TextStyle(
-                               fontSize: 15.0,
-                             )),
+                        Text("Début : " +
+                            listeEvents[index].time_debut.toString(),
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                            )),
                         const Spacer(flex: 1,),
                       ],
                     ),
                   );
                 }),
           ),
+
+        ],
+      ),
+    );
+  }
+
+  Widget _festMap() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          Image.asset('assets/solimonthmap.png'),
         ],
       ),
     );
@@ -72,7 +86,7 @@ class _HomePageState extends State<HomePage> {
 
   _fetchEvents() async {
     final response = await http
-        .get(Uri.parse('http://127.0.0.1:8000/api/event'));
+        .get(Uri.parse('http://10.0.2.2:8000/api/event'));
 
     if (response.statusCode == 200) {
       var mapEvents = jsonDecode(response.body);

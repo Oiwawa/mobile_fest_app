@@ -73,7 +73,7 @@ class _AdminSceneState extends State<AdminScene> {
 
   _fetchScene() async {
     final response =
-    await http.get(Uri.parse('http://127.0.0.1:8000/api/scene'));
+    await http.get(Uri.parse('http://10.0.2.2:8000/api/scene'));
 
     if (response.statusCode == 200) {
       var mapScenes = jsonDecode(response.body);
@@ -102,7 +102,7 @@ class _AdminSceneState extends State<AdminScene> {
 
   _deleteScene(String id) async {
     final response = await http
-        .delete(Uri.parse('http://127.0.0.1:8000/api/scene/' + id));
+        .delete(Uri.parse('http://10.0.2.2:8000/api/scene/' + id));
 
     if (response.statusCode == 200) {
       Fluttertoast.showToast(

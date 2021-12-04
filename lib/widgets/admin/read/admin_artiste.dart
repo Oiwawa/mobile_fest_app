@@ -45,7 +45,7 @@ class _AdminArtisteState extends State<AdminArtiste> {
                               fontSize: 15.0,
                         )),
                         const Spacer(flex: 1,),
-                        Text("Contact : "+ listeArtistes[index].contact.toString(),
+                        Text(listeArtistes[index].contact.toString(),
                             style: const TextStyle(
                               fontSize: 15.0,
                             )),
@@ -77,7 +77,7 @@ class _AdminArtisteState extends State<AdminArtiste> {
 
   _fetchArtiste() async {
     final response = await http
-        .get(Uri.parse('http://127.0.0.1:8000/api/artiste'));
+        .get(Uri.parse('http://10.0.2.2:8000/api/artiste'));
 
     if (response.statusCode == 200) {
 
@@ -113,7 +113,7 @@ class _AdminArtisteState extends State<AdminArtiste> {
 
   _deleteArtiste(String id) async {
     final response = await http
-        .delete(Uri.parse('http://127.0.0.1:8000/api/artiste/'+ id));
+        .delete(Uri.parse('http://10.0.2.2:8000/api/artiste/'+ id));
 
     if (response.statusCode == 200) {
       SnackBar snackBarSuccess =

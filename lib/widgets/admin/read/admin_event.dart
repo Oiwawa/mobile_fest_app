@@ -77,7 +77,7 @@ class _AdminEventState extends State<AdminEvent> {
 
   _fetchEvents() async {
     final response = await http
-        .get(Uri.parse('http://127.0.0.1:8000/api/event'));
+        .get(Uri.parse('http://10.0.2.2:8000/api/event'));
 
     if (response.statusCode == 200) {
 
@@ -105,7 +105,7 @@ class _AdminEventState extends State<AdminEvent> {
 
   _deleteEvent(String id) async {
     final response = await http
-        .delete(Uri.parse('http://127.0.0.1:8000/api/event/'+ id));
+        .delete(Uri.parse('http://10.0.2.2:8000/api/event/'+ id));
 
     if (response.statusCode == 200) {
       Fluttertoast.showToast(

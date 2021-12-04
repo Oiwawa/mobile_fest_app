@@ -56,7 +56,7 @@ class _CreateScenePageState extends State<CreateScenePage> {
     String name = tecName.text;
 
     var responseRegister = await http.post(
-        Uri.parse('http://127.0.0.1:8000/api/scene'),
+        Uri.parse('http://10.0.2.2:8000/api/scene'),
         body: {
           "nom": name,
         });

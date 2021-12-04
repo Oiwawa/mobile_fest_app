@@ -38,8 +38,7 @@ class MyApp extends StatelessWidget {
         '/admin': (BuildContext context) => AdminMainPage(),
         '/admin/artistes': (BuildContext context) => AdminArtiste(),
         '/admin/artistes/create': (BuildContext context) => CreateArtistePage(),
-        '/admin/artistes/update/': (BuildContext context) =>
-            UpdateArtistePage(),
+        '/admin/artistes/update/': (BuildContext context) => UpdateArtistePage(),
         '/admin/scenes': (BuildContext context) => AdminScene(),
         '/admin/scenes/create': (BuildContext context) => CreateScenePage(),
         '/admin/scenes/update': (BuildContext context) => CreateScenePage(),
@@ -66,7 +65,8 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   final List<Widget> _children = [
     const HomePage(),
     const LoginPage(),
-    const AdminMainPage()
+    const AdminMainPage(),
+    const AdminArtiste(),
   ];
 
   void onTappedBar(int index){

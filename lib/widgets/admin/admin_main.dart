@@ -17,8 +17,7 @@ class _AdminMainState extends State<AdminMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("DASHBOARD ADMIN")),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 60.0),
+      body: Center(
         child: _buildColumnFields(),
       ),
     );

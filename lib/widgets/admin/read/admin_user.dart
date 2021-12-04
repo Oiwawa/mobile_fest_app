@@ -66,7 +66,7 @@ class _AdminUserState extends State<AdminUser> {
 
   _fetchUsers() async {
     final response = await http
-        .get(Uri.parse('http://127.0.0.1:8000/api/user'));
+        .get(Uri.parse('http://10.0.2.2:8000/api/user'));
 
     if (response.statusCode == 200) {
 
@@ -89,7 +89,7 @@ class _AdminUserState extends State<AdminUser> {
 
   _deleteUser(String id) async {
     final response = await http
-        .delete(Uri.parse('http://127.0.0.1:8000/api/user/'+ id));
+        .delete(Uri.parse('http://10.0.2.2:8000/api/user/'+ id));
 
     if (response.statusCode == 200) {
       Fluttertoast.showToast(

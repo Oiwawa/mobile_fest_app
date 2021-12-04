@@ -66,7 +66,7 @@ class _UpdateArtistePageState extends State<UpdateArtistePage> {
 
   _fetchOneArtiste() async {
     final response = await http
-        .get(Uri.parse('http://127.0.0.1:8000/api/artiste/'));
+        .get(Uri.parse('http://10.0.2.2:8000/api/artiste/'));
 
     if (response.statusCode == 200) {
       newName = response.body[0].toString();
@@ -81,7 +81,7 @@ class _UpdateArtistePageState extends State<UpdateArtistePage> {
     String contact = tecContact.text;
 
     var responseRegister = await http.post(
-        Uri.parse('http://127.0.0.1:8000/api/artiste/' ),
+        Uri.parse('http://10.0.2.2:8000/api/artiste/' ),
         body: {
           "nom": name,
           "contact": contact,
