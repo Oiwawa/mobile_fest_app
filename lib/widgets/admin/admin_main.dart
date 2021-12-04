@@ -55,6 +55,13 @@ class _AdminMainState extends State<AdminMainPage> {
               onPressed: _goToEvent,
               child: const Text('EVENEMENTS')),
         ),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(
+              onPressed: _home,
+              child: const Text('ACCUEIL')),
+        ),
         const Spacer()
       ],
     );
@@ -71,6 +78,9 @@ class _AdminMainState extends State<AdminMainPage> {
   }
   _goToEvent() async {
     Navigator.of(context).pushNamed('/admin/events');
+  }
+  _home() async {
+    Navigator.of(context).pushNamed('/home');
   }
 
 }

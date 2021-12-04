@@ -18,14 +18,14 @@ class _CreateEventPageState extends State<CreateEventPage> {
   TextEditingController tecFin = TextEditingController();
 
 
-  TimeOfDay _debut = TimeOfDay(hour: 00, minute: 00);
-  TimeOfDay _fin = TimeOfDay(hour: 01, minute: 00);
+  TimeOfDay _debut = TimeOfDay(hour: 19, minute: 00);
+  TimeOfDay _fin = TimeOfDay(hour: 21, minute: 00);
 
   void _selectTimeDebut() async {
     final TimeOfDay? debut = await showTimePicker(
       context: context,
       initialTime: _debut,
-      initialEntryMode: TimePickerEntryMode.input,
+      initialEntryMode: TimePickerEntryMode.dial,
     );
     if (debut != null) {
       setState(() {
@@ -37,7 +37,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
     final TimeOfDay? newTime = await showTimePicker(
       context: context,
       initialTime: _fin,
-      initialEntryMode: TimePickerEntryMode.input,
+      initialEntryMode: TimePickerEntryMode.dial,
     );
     if (newTime != null) {
       setState(() {
