@@ -13,6 +13,7 @@ class CreateEventPage extends StatefulWidget {
 
 class _CreateEventPageState extends State<CreateEventPage> {
   TextEditingController tecName = TextEditingController();
+  TextEditingController tecScene = TextEditingController();
   TextEditingController tecDebut = TextEditingController();
   TextEditingController tecFin = TextEditingController();
 
@@ -70,18 +71,27 @@ class _CreateEventPageState extends State<CreateEventPage> {
               prefixIcon: Icon(Icons.person)),
         ),
         const Spacer(flex: 1,),
+        TextField(
+          controller: tecScene,
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.name,
+          decoration: const InputDecoration(
+              label: Text('Scene'),
+              prefixIcon: Icon(Icons.apartment)),
+        ),
+        const Spacer(flex: 1,),
         ElevatedButton(
           onPressed: _selectTimeDebut,
           child: const Text('DEBUT'),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 2),
         Text(
           'Horaire début: ${_debut.format(context)}',
         ),
         const Spacer(flex: 1,),
         ElevatedButton(
           onPressed: _selectTimeFin,
-          child: const Text('DEBUT'),
+          child: const Text('FIN'),
         ),
         const SizedBox(height: 8),
         Text(
@@ -102,13 +112,15 @@ class _CreateEventPageState extends State<CreateEventPage> {
   _onAddEvent() async {
     print('nom artiste : ${tecName.text}');
     String name = tecName.text;
+    String scene = tecScene.text;
     String debut = _debut.format(context);
     String fin = _fin.format(context);
 
     var responseRegister = await http.post(
-        Uri.parse('http://127.0.0.1:8000/api/event'),
+        Uri.parse('http://192.168.1.51/api/event'),
         body: {
-          "nom": name,
+          "nomArtiste": name,
+          "scene": scene,
           "time_debut": debut,
           "time_fin": fin,
         });

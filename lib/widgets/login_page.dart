@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -75,21 +76,25 @@ class _LoginPageState extends State<LoginPage> {
 
     try{
       var responseRegister = await http.post(
-        Uri.parse(" http://127.0.0.1:8000/api/login"),
+        Uri.parse("http://127.0.0.1:8000/api/login"),
         body: {
           "email": identifiant,
           "password": password,
         }
       );
       if(responseRegister.statusCode == 200){
-        //Informer l'utilisateur du succès de la requête
+        // var body = json.decode(responseRegister.body);
+        // SharedPreferences localStorage = await SharedPreferences.getInstance();
+        // localStorage.setString('token', body['token']);
+        // print(body['token']);
+
         SnackBar snackBarSuccess  = new SnackBar(content: Text("Connexion réussie"));
         ScaffoldMessenger.of(context).showSnackBar(snackBarSuccess);
         //Vider nos TextField
         tecIdentifier.clear();
         tecPassword.clear();
 
-        _onLoginSuccess(jsonDecode(responseRegister.body)["jwt"]);
+        _onLoginSuccess(jsonDecode(responseRegister.body)["token"]);
 
       } else  if (responseRegister.statusCode >0){
         //Si le serveur répond autre chose que 200 alors on affiche le status

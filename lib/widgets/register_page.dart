@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -38,18 +39,18 @@ class _RegisterPageState extends State<RegisterPage> {
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.emailAddress,
           decoration: const InputDecoration(
-              label: Text('Name'), prefixIcon: Icon(Icons.person)),
+              label: Text('Nom :'), prefixIcon: Icon(Icons.person)),
         ), TextField(
           controller: tecEmail,
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.emailAddress,
           decoration: const InputDecoration(
-              label: Text('Adresse-mail'), prefixIcon: Icon(Icons.email)),
+              label: Text('Adresse-mail :'), prefixIcon: Icon(Icons.email)),
         ), TextField(
           controller: tecFestivalPass,
           textInputAction: TextInputAction.next,
           decoration: const InputDecoration(
-              label: Text('N° pass festival'),
+              label: Text('N° pass festival :'),
               prefixIcon: Icon(Icons.confirmation_number)),
         ),
         TextField(
@@ -57,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
           textInputAction: TextInputAction.done,
           obscureText: true,
           decoration: const InputDecoration(
-              label: Text('Mot de passe'), prefixIcon: Icon(Icons.password)),
+              label: Text('Mot de passe :'), prefixIcon: Icon(Icons.password)),
         ),
         const Spacer(),
         Padding(
@@ -78,10 +79,6 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   _onRegister() async {
-    print('username : ${tecName.text}');
-    print('email : ${tecEmail.text}');
-    print('password : ${tecPassword.text}');
-    print('password : ${tecFestivalPass.text}');
     String name = tecName.text;
     String email = tecEmail.text;
     String festivalPass = tecFestivalPass.text;
@@ -95,7 +92,6 @@ class _RegisterPageState extends State<RegisterPage> {
           "festival_pass": festivalPass,
           "password": password,
         });
-        print(responseRegister.body.toString());
     try {
       if (responseRegister.statusCode == 200) {
         SnackBar snackBarSuccess =

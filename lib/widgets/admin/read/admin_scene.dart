@@ -31,6 +31,7 @@ class _AdminSceneState extends State<AdminScene> {
       body: Column(
         children: [
           Expanded(
+            flex: 10,
             child: ListView.separated(
                 separatorBuilder: (context, index) => const Divider(),
                 itemCount: listeScenes.length,
@@ -63,6 +64,7 @@ class _AdminSceneState extends State<AdminScene> {
                 onPressed: _addScene,
                 child: const Text('CRÉER UNE SCENE')),
           ),
+          const Spacer(flex: 1),
         ],
       ),
     );

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_fest_app/widgets/admin/admin_event.dart';
-import 'package:mobile_fest_app/widgets/admin/admin_festival.dart';
-import 'package:mobile_fest_app/widgets/admin/admin_artiste.dart';
+import 'package:mobile_fest_app/widgets/admin/create/user_create.dart';
+import 'package:mobile_fest_app/widgets/admin/read/admin_event.dart';
+import 'package:mobile_fest_app/widgets/admin/read/admin_festival.dart';
+import 'package:mobile_fest_app/widgets/admin/read/admin_artiste.dart';
 import 'package:mobile_fest_app/widgets/admin/admin_main.dart';
-import 'package:mobile_fest_app/widgets/admin/admin_scene.dart';
-import 'package:mobile_fest_app/widgets/admin/admin_user.dart';
+import 'package:mobile_fest_app/widgets/admin/read/admin_scene.dart';
+import 'package:mobile_fest_app/widgets/admin/read/admin_user.dart';
 import 'package:mobile_fest_app/widgets/admin/create/artiste_create.dart';
 import 'package:mobile_fest_app/widgets/admin/create/event_create.dart';
 import 'package:mobile_fest_app/widgets/admin/create/scene_create.dart';
+import 'package:mobile_fest_app/widgets/admin/update/update_artiste.dart';
 
 import 'widgets/home_page.dart';
 import 'widgets/login_page.dart';
@@ -28,95 +30,72 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: HomePage(),
+      home: MyBottomNavigationBar(),
       routes: <String, WidgetBuilder>{
         '/register': (BuildContext context) => RegisterPage(),
         '/login': (BuildContext context) => LoginPage(),
-
         '/home': (BuildContext context) => HomePage(),
         '/admin': (BuildContext context) => AdminMainPage(),
-
         '/admin/artistes': (BuildContext context) => AdminArtiste(),
         '/admin/artistes/create': (BuildContext context) => CreateArtistePage(),
-
+        '/admin/artistes/update/': (BuildContext context) =>
+            UpdateArtistePage(),
         '/admin/scenes': (BuildContext context) => AdminScene(),
         '/admin/scenes/create': (BuildContext context) => CreateScenePage(),
         '/admin/scenes/update': (BuildContext context) => CreateScenePage(),
-
         '/admin/events': (BuildContext context) => AdminEvent(),
         '/admin/events/create': (BuildContext context) => CreateEventPage(),
-
         '/admin/festival': (BuildContext context) => AdminFestival(),
         '/admin/users': (BuildContext context) => AdminUser(),
+        '/admin/users/create': (BuildContext context) => CreateUserPage(),
       },
-      initialRoute: '/home',
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class MyBottomNavigationBar extends StatefulWidget {
+  const MyBottomNavigationBar({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
+
+  int _currentIndex = 0;
+  final List<Widget> _children = [
+    const HomePage(),
+    const LoginPage(),
+    const AdminMainPage()
   ];
 
-  void _onItemTapped(int index) {
+  void onTappedBar(int index){
     setState(() {
-      _selectedIndex = index;
+      _currentIndex = index;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        onTap: onTappedBar,
+        currentIndex: _currentIndex,
+        items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+              icon: Icon(Icons.home),
+              label: ("Home")
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+              icon: Icon(Icons.person),
+              label: ("Connexion")
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+              icon: Icon(Icons.admin_panel_settings),
+              label: ("Admin")
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
       ),
     );
   }

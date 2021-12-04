@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobile_fest_app/bo/artiste.dart';
 import 'package:mobile_fest_app/bo/event.dart';
 
@@ -74,7 +75,6 @@ class _HomePageState extends State<HomePage> {
         .get(Uri.parse('http://127.0.0.1:8000/api/event'));
 
     if (response.statusCode == 200) {
-
       var mapEvents = jsonDecode(response.body);
       List<Event> events = List<Event>.from(
           mapEvents.map((events) => Event.fromJson(events))

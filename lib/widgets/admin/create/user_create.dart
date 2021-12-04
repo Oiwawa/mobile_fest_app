@@ -3,26 +3,24 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_fest_app/bo/artiste.dart';
 
-class UpdateArtistePage extends StatefulWidget {
-
-  const UpdateArtistePage({Key? key}) : super(key: key);
+class CreateUserPage extends StatefulWidget {
+  const CreateUserPage({Key? key}) : super(key: key);
 
   @override
-  _UpdateArtistePageState createState() => _UpdateArtistePageState();
+  _CreateUserPageState createState() => _CreateUserPageState();
 }
 
-class _UpdateArtistePageState extends State<UpdateArtistePage> {
+class _CreateUserPageState extends State<CreateUserPage> {
   TextEditingController tecName = TextEditingController();
-  TextEditingController tecContact = TextEditingController();
-  String newName = TextEditingController() as String;
-  String newContact = TextEditingController() as String;
+  TextEditingController tecEmail = TextEditingController();
+  TextEditingController tecFestivalPass = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Ajouter un artiste")),
+      appBar: AppBar(title: const Text("Ajouter un utilisateur")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 60.0),
         child: _buildColumnFields(),
@@ -40,53 +38,50 @@ class _UpdateArtistePageState extends State<UpdateArtistePage> {
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.name,
           decoration: const InputDecoration(
-              label: Text('Nom de l\'artiste'),
+              label: Text('Nom :'),
               prefixIcon: Icon(Icons.person)),
         ),
         TextField(
-          controller: tecContact,
+          controller: tecEmail,
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.name,
           decoration: const InputDecoration(
-              label: Text('Contact de l\'artiste'),
+              label: Text('Email :'),
               prefixIcon: Icon(Icons.mail)),
+        ),
+        TextField(
+          controller: tecEmail,
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.name,
+          decoration: const InputDecoration(
+              label: Text('N° pass festival :'),
+              prefixIcon: Icon(Icons.confirmation_number)),
         ),
         const Spacer(),
         const Spacer(),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
-              onPressed: _onUpdateArtiste,
-              child: const Text('MODIFIER LA FICHE DE L\'ARTISTE')),
+              onPressed: _onAddUser(),
+              child: const Text('AJOUTER L\'UTILISATEUR')),
         ),
         const Spacer()
       ],
     );
   }
 
-  _fetchOneArtiste() async {
-    final response = await http
-        .get(Uri.parse('http://127.0.0.1:8000/api/artiste/'));
-
-    if (response.statusCode == 200) {
-      newName = response.body[0].toString();
-      newContact = response.body[1].toString();
-    }
-  }
-
-  _onUpdateArtiste() async {
-    print('nom artiste : ${tecName.text}');
-    print('nom artiste : ${tecContact.text}');
+  _onAddUser() async {
     String name = tecName.text;
-    String contact = tecContact.text;
+    String email = tecEmail.text;
+    String festivalPass = tecFestivalPass.text;
 
     var responseRegister = await http.post(
-        Uri.parse('http://127.0.0.1:8000/api/artiste/' ),
+        Uri.parse('http://127.0.0.1:8000/api/user'),
         body: {
           "nom": name,
-          "contact": contact,
+          "email": email,
+          "festivalPass": festivalPass,
         });
-    print(responseRegister.body.toString());
     try {
       if (responseRegister.statusCode == 200) {
         SnackBar snackBarSuccess =
@@ -109,6 +104,6 @@ class _UpdateArtistePageState extends State<UpdateArtistePage> {
   }
 
   _onAdd() async {
-    Navigator.of(context).pushNamed('/admin/artistes');
+    Navigator.of(context).pushNamed('/admin/users');
   }
 }

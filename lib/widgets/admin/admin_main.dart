@@ -37,6 +37,13 @@ class _AdminMainState extends State<AdminMainPage> {
         ),
         const Spacer(),
         Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: ElevatedButton(
+              onPressed: _goToUsers,
+              child: const Text('UTILISATEURS')),
+        ),
+        const Spacer(),
+        Padding(
           padding: const EdgeInsets.all(8.0),
           child: ElevatedButton(
               onPressed: _goToScene,
@@ -56,6 +63,9 @@ class _AdminMainState extends State<AdminMainPage> {
 
   _goToArtiste() async {
     Navigator.of(context).pushNamed('/admin/artistes');
+  }
+  _goToUsers() async {
+    Navigator.of(context).pushNamed('/admin/users');
   }
   _goToScene() async {
     Navigator.of(context).pushNamed('/admin/scenes');

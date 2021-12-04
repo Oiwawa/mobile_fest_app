@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobile_fest_app/bo/artiste.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile_fest_app/widgets/admin/update/update_artiste.dart';
 
 class AdminArtiste extends StatefulWidget {
   const AdminArtiste({Key? key}) : super(key: key);
@@ -48,7 +49,12 @@ class _AdminArtisteState extends State<AdminArtiste> {
                             style: const TextStyle(
                               fontSize: 15.0,
                             )),
-                        const Spacer(flex: 10),
+                        const Spacer(flex: 8),
+                        IconButton(
+                            onPressed: () => _editArtiste(listeArtistes[index]),
+                            icon: const Icon(Icons.edit)
+                        ),
+                        const Spacer(flex: 1),
                         IconButton(
                             onPressed: () => _deleteArtiste(listeArtistes[index].id.toString()),
                             icon: const Icon(Icons.delete)
@@ -96,6 +102,15 @@ class _AdminArtisteState extends State<AdminArtiste> {
   _addArtiste() {
     Navigator.of(context).pushNamed('/admin/artistes/create');
   }
+
+  _editArtiste(Artiste artiste) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => UpdateArtistePage(),
+        ));
+  }
+
   _deleteArtiste(String id) async {
     final response = await http
         .delete(Uri.parse('http://127.0.0.1:8000/api/artiste/'+ id));

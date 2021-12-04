@@ -38,13 +38,14 @@ class _AdminUserState extends State<AdminUser> {
                   return ListTile(
                     title: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(listeUsers[index].name.toString(),
                             style: const TextStyle(
 
                             )),
                         const Spacer(flex: 5),
-                        Text("FestivalPass : "+ listeUsers[index].festivalPass.toString(),
+                        Text(listeUsers[index].festivalPass.toString(),
                             style: const TextStyle(
                               fontSize: 15.0,
                             )),
