@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile_fest_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -115,6 +116,6 @@ class _LoginPageState extends State<LoginPage> {
   void _onLoginSuccess(String jwt) {
     var storage = FlutterSecureStorage();
     storage.write(key: "jwt", value: jwt);
-    Navigator.pushNamed(context,'/home');
+    Navigator.pushNamed(context, '/');
   }
 }

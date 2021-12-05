@@ -80,7 +80,7 @@ class _AdminMainState extends State<AdminMainPage> {
     Navigator.of(context).pushNamed('/admin/events');
   }
   _home() async {
-    Navigator.of(context).pushNamed('/home');
+    Navigator.of(context).pushNamed('/');
   }
 
 }
